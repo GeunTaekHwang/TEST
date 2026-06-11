@@ -2,18 +2,17 @@
 
 #include <afxcmn.h>
 #include <vector>
-#include <map>
 
-// 셀 타입 정의
+// Cell type definition
 enum CellType
 {
-    CELL_TEXT,      // 일반 텍스트
-    CELL_BUTTON,    // 버튼
-    CELL_CHECKBOX,  // 체크박스
-    CELL_COMBOBOX   // 콤보박스
+    CELL_TEXT,      // Text
+    CELL_BUTTON,    // Button
+    CELL_CHECKBOX,  // Checkbox
+    CELL_COMBOBOX   // Combobox
 };
 
-// 셀 정보 구조체
+// Cell information structure
 struct CellInfo
 {
     CellType type;
@@ -30,7 +29,7 @@ struct CellInfo
                  comboSelectedIndex(0), bEnabled(TRUE) {}
 };
 
-// 행 정보 구조체
+// Row information structure
 struct RowInfo
 {
     std::vector<CellInfo> cells;
@@ -40,7 +39,7 @@ struct RowInfo
     RowInfo() : bgColor(RGB(255, 255, 255)), textColor(RGB(0, 0, 0)) {}
 };
 
-// 헤더 정보 구조체
+// Header information structure
 struct HeaderInfo
 {
     CString text;
@@ -62,10 +61,10 @@ public:
     virtual ~CAdvancedListCtrl();
 
 public:
-    // 초기화 함수
+    // Initialization
     void Initialize(int nMaxRows, int nMaxCols);
 
-    // 헤더 관련 함수
+    // Header related functions
     void SetHeaderText(int col, const CString& text);
     void SetHeaderBackColor(int col, COLORREF color);
     void SetHeaderTextColor(int col, COLORREF color);
@@ -75,42 +74,42 @@ public:
     COLORREF GetHeaderBackColor(int col) const;
     COLORREF GetHeaderTextColor(int col) const;
 
-    // 셀 관련 함수
+    // Cell related functions
     void SetCellText(int row, int col, const CString& text);
     CString GetCellText(int row, int col) const;
     void SetCellBackColor(int row, int col, COLORREF color);
     void SetCellTextColor(int row, int col, COLORREF color);
     void SetCellType(int row, int col, CellType type);
     
-    // 체크박스 관련
+    // Checkbox related
     void SetCellCheckBox(int row, int col, BOOL bChecked);
     BOOL GetCellCheckBox(int row, int col) const;
 
-    // 콤보박스 관련
+    // Combobox related
     void SetCellComboBox(int row, int col, const std::vector<CString>& items, int nSelected = 0);
     void AddComboItem(int row, int col, const CString& item);
     int GetCellComboBoxSelected(int row, int col) const;
     CString GetCellComboBoxText(int row, int col) const;
 
-    // 버튼 관련
+    // Button related
     void SetCellButton(int row, int col, const CString& text);
     
-    // 행 관련 함수
+    // Row related functions
     void SetRowBackColor(int row, COLORREF color);
     void SetRowTextColor(int row, COLORREF color);
     int GetRowCount() const { return m_nMaxRows; }
     int GetColCount() const { return m_nMaxCols; }
 
-    // 셀 활성화/비활성화
+    // Cell enable/disable
     void SetCellEnabled(int row, int col, BOOL bEnabled);
     BOOL GetCellEnabled(int row, int col) const;
 
-    // 전체 조회 함수
+    // Query functions
     CellInfo* GetCell(int row, int col);
     RowInfo* GetRow(int row);
     HeaderInfo* GetHeader(int col);
 
-    // 이벤트 핸들러 (오버라이드 가능)
+    // Event handlers (override these)
     virtual void OnButtonClicked(int row, int col) {}
     virtual void OnCheckBoxChanged(int row, int col, BOOL bChecked) {}
     virtual void OnComboBoxSelectionChanged(int row, int col, int nSelected) {}
